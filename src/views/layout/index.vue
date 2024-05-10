@@ -1,0 +1,93 @@
+<template>
+    <div id="main">
+        <el-container>
+            <MyAside></MyAside>
+            <el-container>
+                <!-- 头部区域 -->
+                <el-header style="text-align: end;">
+                    <MyHeader :avatar="avatar" :nickname="name"></MyHeader>
+                </el-header>
+                <!-- main区域 -->
+                <el-main>
+                    <router-view />
+                </el-main>
+            </el-container>
+        </el-container>
+    </div>
+</template>
+ 
+<script>
+import MyHeader from "@/components/layout/MyHeader.vue"
+import MyAside from "@/components/layout/MyAside.vue"
+import { routes } from '@/router/routes'
+import { mapGetters } from 'vuex'
+
+export default {
+    computed: {
+        ...mapGetters([
+            'avatar',
+            'name',
+            'menus'
+        ])
+    },
+    components: { MyHeader, MyAside },
+    data() {
+        return {
+            routes
+        }
+    },
+    created() {
+        this.$store.dispatch('user/getInfo')
+    },
+    methods: { 
+
+    }
+}
+</script>
+ 
+<style scoped>
+
+#main {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+ 
+.el-header,
+.el-footer {
+    /* background-color: #B3C0D1; */
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+}
+ 
+.el-aside {
+    /* background-color: #D3DCE6; */
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+}
+ 
+.el-main {
+    background-color: #f3f3f3;
+    color: #333;
+}
+ 
+body>.el-container {
+    margin-bottom: 40px;
+}
+ 
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+}
+ 
+.el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+}
+ 
+::v-deep .el-container {
+    height: 100%;
+}
+</style>
