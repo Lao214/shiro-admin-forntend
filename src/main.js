@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router' // 引入上面定义的路由模块
 import '@/styles/index.scss' // global css
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 
 
 import { Button, Select, Message, Avatar, Row, Col, Divider, Dialog, Rate, DatePicker, Option, Container, Header, Aside, Main,
@@ -64,12 +64,13 @@ if (token) {
     }).$mount('#app');
   }).catch(error => {
     console.error('Failed to initialize user information', error);
-    // 处理获取用户信息失败的情况，可能需要重定向到登录页面
+    // 处理获取用户信息失败的情况，可能需要重定向到登录页面,并且清除无效的token
+    removeToken()
     router.push('/login')
-  });
+  })
 } else {
   // 如果 token 不存在，直接重定向到登录页面
-  // this.$message("检测不到您的令牌，请先登录")
+  this.$message("检测不到您的令牌，请先登录")
   router.push('/login')
 
   // 或者你也可以先启动应用，但不加载用户信息
