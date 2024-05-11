@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { routes } from "@/router/routes";
+// import { routes } from "@/router/routess";
 // import subMenu from "@/components/subMenu/subMenu.vue";
 
 export default {
@@ -16,15 +16,15 @@ export default {
   data() {
       return {
           collapsed: false,
-          routes
+          // routes
       }
   },
   created() {
-    console.log(this.routes)
+    // console.log(this.routes)
   }
 };
 </script>
 
 <style scoped>
 
-</style>
+</style>@/router/routess

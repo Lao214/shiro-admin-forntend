@@ -1,7 +1,16 @@
 <template>
     <aside>
         <p> Menu </p>
-        <span href="javascript:void(0)">
+        <span v-for="(item, index) in menus" :key="index"> 
+          <i :class="item.perIcon" aria-hidden="true"></i>
+            {{ item.perName }}
+           <a v-for="(item2, index2) in item.children" @click="rushToPath( item.perPath + '/' + item2.perPath, item2.perName)" :key="index2">
+              <i :class="item2.perIcon" aria-hidden="true"></i>
+              {{ item2.perName }}
+           </a>
+        </span>
+
+        <!-- <span>
             <i class="fa fa-user-o" aria-hidden="true"></i>
             用户与权限
             <a @click="rushToPath('user','用户管理')">
@@ -16,12 +25,13 @@
                 <i class="fa fa-user-o" aria-hidden="true"></i>
                 权限管理
             </a>
-        </span>
+        </span> -->
     </aside>
 </template>
 
 <script>
 export default {
+  props: ['menus'],
   data() {
     return {
 

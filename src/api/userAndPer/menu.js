@@ -22,14 +22,43 @@ export default {
       method: 'get'
     })
   },
-   /*
+  /*
     给某个角色授权
-   */
-    doAssign(assginMenuVo) {
+  */
+  doAssign(assginMenuVo) {
         return request({
         url: `${api_name}/doAssign`,
         method: 'post',
         data: assginMenuVo
         })
-    }
+  },
+  /*
+  保存
+  */
+  save(sysMenu) {
+    return request({
+      url: `${api_name}/save`,
+      method: 'post',
+      data: sysMenu
+    })
+  },
+  /*
+  根据id修改
+  */
+  updateById(sysMenu) {
+    return request({
+      url: `${api_name}/update`,
+      method: 'post',
+      data: sysMenu
+    })
+  },
+  /*
+    删除
+  */
+  removeById(id) {
+    return request({
+      url: `${api_name}/remove/${id}`,
+      method: 'delete'
+    })
+  },
 }

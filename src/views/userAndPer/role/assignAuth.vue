@@ -21,7 +21,7 @@
         sysMenuList: [], // 所有
         defaultProps: {
           children: 'children',
-          label: 'name'
+          label: 'perName'
         },
       };
     },

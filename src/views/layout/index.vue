@@ -1,7 +1,7 @@
 <template>
     <div id="main">
         <el-container>
-            <MyAside></MyAside>
+            <MyAside :menus="menus"></MyAside>
             <el-container>
                 <!-- 头部区域 -->
                 <el-header style="text-align: end;">
@@ -19,7 +19,6 @@
 <script>
 import MyHeader from "@/components/layout/MyHeader.vue"
 import MyAside from "@/components/layout/MyAside.vue"
-import { routes } from '@/router/routes'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -32,12 +31,10 @@ export default {
     },
     components: { MyHeader, MyAside },
     data() {
-        return {
-            routes
-        }
+        return {}
     },
     created() {
-        this.$store.dispatch('user/getInfo')
+        // this.$store.dispatch('user/getInfo')
     },
     methods: { 
 

@@ -13,7 +13,7 @@
                 <!-- <li>Another action</li>
                 <li>Something else here</li> -->
                 <li class="divider"></li>
-                <li><i class="fa fa-sign-out"></i> 退出登录</li>
+                <li @click="logout"><i class="fa fa-sign-out"></i> 退出登录</li>
             </ul>
         </label>
     </div>
@@ -22,7 +22,17 @@
 <script>
 export default {
   props: ['avatar','nickname'],
-
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('user/logout')
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
@@ -79,6 +89,7 @@ a:hover {
 
 .dd-menu {
   position: absolute;
+  z-index: 100;
   top: 100%;
   min-width: 140px;
   border-radius: 4px;

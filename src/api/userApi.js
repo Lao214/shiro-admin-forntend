@@ -12,6 +12,13 @@ export function login(loginForm) {
   })
 }
 
+export function logout() {
+  return request({
+    url: '/shiro/user/logout',
+    method: 'post',
+  })
+}
+
 export function getInfo() {
   return request({
     url: '/shiro/user/info',
