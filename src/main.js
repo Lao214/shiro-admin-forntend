@@ -63,20 +63,37 @@ if (token) {
       render: h => h(App)
     }).$mount('#app');
   }).catch(error => {
-    console.error('Failed to initialize user information', error);
+    Message({
+      message: error,
+      type: 'warning',
+      duration: 5 * 1000
+    })
+    // console.error('Failed to initialize user information', error);
     // 处理获取用户信息失败的情况，可能需要重定向到登录页面,并且清除无效的token
     removeToken()
-    router.push('/login')
+    MessageBox.confirm('获取不到您的用户信息，请重新登录', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      // 调用方法删除
+      router.push('/login')
+    }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })         
+    })
   })
 } else {
   // 如果 token 不存在，直接重定向到登录页面
-  this.$message("检测不到您的令牌，请先登录")
-  router.push('/login')
+  // console.log('token不存在，请重新登录')
+  // router.push('/login')
 
   // 或者你也可以先启动应用，但不加载用户信息
   new Vue({
     router,
     store,
     render: h => h(App)
-  }).$mount('#app');
+  }).$mount('#app')
 }

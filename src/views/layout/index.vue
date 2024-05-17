@@ -20,6 +20,7 @@
 import MyHeader from "@/components/layout/MyHeader.vue"
 import MyAside from "@/components/layout/MyAside.vue"
 import { mapGetters } from 'vuex'
+import { getToken } from "@/utils/auth"
 
 export default {
     computed: {
@@ -34,7 +35,21 @@ export default {
         return {}
     },
     created() {
-        // this.$store.dispatch('user/getInfo')
+        if(!getToken()) {
+            this.$confirm('系统检测不到您的验证令牌，请登录', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                // 调用方法删除
+                this.$router.push('/login')
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                })         
+            })
+        }
     },
     methods: { 
 

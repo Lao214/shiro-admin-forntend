@@ -65,13 +65,16 @@
           <el-form-item label="用户名" prop="username">
             <el-input v-model="sysUser.username" />
           </el-form-item>
-          <el-form-item label="姓名" prop="name">
+          <el-form-item label="姓名" prop="nickname">
             <el-input v-model="sysUser.nickname" />
           </el-form-item>
-          <el-form-item label="厂区" prop="phone">
+          <el-form-item label="姓名" prop="password">
+            <el-input v-model="sysUser.password" />
+          </el-form-item>
+          <el-form-item label="厂区" prop="factory">
             <el-input v-model="sysUser.factory" />
           </el-form-item>
-          <el-form-item label="事业群" prop="phone">
+          <el-form-item label="事业群" prop="unit">
             <el-input v-model="sysUser.unit" />
           </el-form-item>
         </el-form>
@@ -211,6 +214,11 @@ export default {
           // 刷新
           this.fetchData()
         })
+      }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })         
       })
     },
     // 根据id查询，数据回显
