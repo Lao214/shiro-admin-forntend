@@ -37,7 +37,7 @@ service.interceptors.response.use(
       // 对响应数据做点什么，这里假设后端返回的数据结构包含 { code, data, message }
       const { code, data, msg } = response.data
       if (code === 200) {
-        return data
+        return { code, data, msg }
       } else if(code === 301) {
         router.push('/login'); // 跳转到登录页面的逻辑
         Message.error(msg || '发生了一些错误，请重试！')

@@ -68,7 +68,7 @@
           <el-form-item label="姓名" prop="nickname">
             <el-input v-model="sysUser.nickname" />
           </el-form-item>
-          <el-form-item label="姓名" prop="password">
+          <el-form-item label="密码" prop="password">
             <el-input v-model="sysUser.password" />
           </el-form-item>
           <el-form-item label="厂区" prop="factory">
