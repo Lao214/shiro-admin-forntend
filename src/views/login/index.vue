@@ -31,7 +31,7 @@
 </template>
 
 <script>
-
+import { removeToken } from '@/utils/auth'
 export default {
     data() {
         return {
@@ -59,6 +59,7 @@ export default {
                 return
             }
             this.loading = true
+            removeToken()
             try {
                 // 等待 login 操作完成
                 await this.$store.dispatch('user/login', this.loginForm)

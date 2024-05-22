@@ -61,7 +61,7 @@ if (token) {
       router,
       store,
       render: h => h(App)
-    }).$mount('#app');
+    }).$mount('#app')
   }).catch(error => {
     Message({
       message: error,
@@ -84,6 +84,12 @@ if (token) {
           message: '已取消'
         })         
     })
+  }).finally(() => {
+    new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app')
   })
 } else {
   // 如果 token 不存在，直接重定向到登录页面
