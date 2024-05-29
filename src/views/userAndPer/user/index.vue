@@ -185,8 +185,8 @@ export default {
       this.page = page
       userApi.getPageList(this.page, this.limit, this.searchObj)
         .then(response => {
-          this.datalist = response.data.records
-          this.total = response.data.total
+          this.datalist = response.data.data.records
+          this.total = response.data.data.total
         })
     },
     // 添加或者修改方法
