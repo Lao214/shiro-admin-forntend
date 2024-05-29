@@ -37,7 +37,7 @@
       fetchData() {
         const roleId = this.$route.query.id
         api.toAssign(roleId).then(result => {
-          const sysMenuList = result.data
+          const sysMenuList = result.data.data
           this.sysMenuList = sysMenuList
           const checkedIds = this.getCheckedIds(sysMenuList)
           console.log('getPermissions() checkedIds', checkedIds)

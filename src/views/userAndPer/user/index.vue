@@ -228,7 +228,7 @@ export default {
       // 调用接口查询
       userApi.getUserById(id)
         .then(response => {
-          this.sysUser = response.data
+          this.sysUser = response.data.data
         })
     },
     // 修改

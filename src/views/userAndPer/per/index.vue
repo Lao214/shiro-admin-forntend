@@ -248,8 +248,8 @@ export default {
     //调用api层获取数据库中的数据
     fetchData() {
       api.findNodes().then(response => {
-        this.sysMenuList = response.data
-        console.log(this.sysMenuList)
+        this.sysMenuList = response.data.data
+        // console.log(this.sysMenuList)
         // 根据perType分组
         this.splitByPerType()
       })

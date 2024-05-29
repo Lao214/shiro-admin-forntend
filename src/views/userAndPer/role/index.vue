@@ -95,8 +95,8 @@ export default {
             this.page = pageNum
             roleApi.getPageList(this.page, this.limit, this.searchObj).then(res => {
                 console.log(res)
-                this.datalist = res.data.records
-                this.total = res.data.total
+                this.datalist = res.data.data.records
+                this.total = res.data.data.total
             })
         },
         // 点击添加，弹出框
@@ -109,7 +109,7 @@ export default {
             // 弹出框
             this.dialogVisible = true
             roleApi.getRoleById(id).then(response => {
-                this.sysRole = response.data
+                this.sysRole = response.data.data
             })
         },
         // 点击确定
