@@ -1,6 +1,6 @@
 // src/utils/request.js
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import store from "@/store"
 import { getToken } from '@/utils/auth'
 // 确保你已经导入Vue Router
@@ -39,8 +39,23 @@ service.interceptors.response.use(
       if (code === 200) {
         return { code, data, msg }
       } else if(code === 301) {
-        router.push('/login'); // 跳转到登录页面的逻辑
-        Message.error(msg || '发生了一些错误，请重试！')
+        // console.log('token失效')
+        removeToken()
+        MessageBox.confirm(msg || '获取不到您的用户信息，请重新登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // 调用方法删除
+          router.push('/login')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          })         
+        })
+          // router.push('/login') // 跳转到登录页面的逻辑
+          Message.error(msg || '发生了一些错误，请重试！')
       } else {
         // 根据后端返回的 code 进行处理，这里以非 200 为例展示错误提示
         Message.error(msg || '发生了一些错误，请重试！')
