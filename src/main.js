@@ -50,56 +50,37 @@ Vue.prototype.$alert = MessageBox.alert
 Vue.config.productionTip = false
 
 
-// 检查 token 是否存在
 const token = getToken()
 
-if (token) {
-  // 如果 token 存在，获取用户信息
-  store.dispatch('user/getInfo').then(() => {
-    // 用户信息获取成功，启动应用
-    new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount('#app')
-  }).catch(error => {
-    Message({
-      message: error,
-      type: 'warning',
-      duration: 5 * 1000
-    })
-    // console.error('Failed to initialize user information', error);
-    // 处理获取用户信息失败的情况，可能需要重定向到登录页面,并且清除无效的token
-    removeToken()
-    MessageBox.confirm('获取不到您的用户信息，请重新登录', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
-      // 调用方法删除
-      router.push('/login')
-    }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
-        })         
-    })
-  }).finally(() => {
-    new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount('#app')
-  })
-} else {
-  // 如果 token 不存在，直接重定向到登录页面
-  // console.log('token不存在，请重新登录')
-  // router.push('/login')
-
-  // 或者你也可以先启动应用，但不加载用户信息
+const initializeApp = () => {
   new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount('#app')
+};
+
+const fetchUserInfo = () => {
+  return store.dispatch('user/getInfo')
 }
+
+const handleUserInfoError = (error) => {
+  console.error('Failed to get user info:', error)
+  // 可选：如果需要，可以清除 token
+  // clearToken();
+  // 可选：向用户显示错误信息
+  // alert('加载用户信息失败，将继续进行。');
+};
+
+const startApp = async () => {
+  if (token) {
+    try {
+      await fetchUserInfo()
+    } catch (error) {
+      handleUserInfoError(error)
+    }
+  }
+  initializeApp()
+}
+
+startApp()

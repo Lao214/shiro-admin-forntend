@@ -41,21 +41,26 @@ service.interceptors.response.use(
       } else if(code === 301) {
         // console.log('token失效')
         removeToken()
-        MessageBox.confirm(msg || '获取不到您的用户信息，请重新登录', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          // 调用方法删除
-          router.push('/login')
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          })         
-        })
-          // router.push('/login') // 跳转到登录页面的逻辑
+        if(window.location.hash === '#/login') {
+          console.log(window.location)
+          return Promise.reject(new Error(msg || 'Error'))
+        } else {
+          MessageBox.confirm(msg || '获取不到您的用户信息，请重新登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            // 调用方法删除
+            router.push('/login')
+          }).catch(() => {
+              this.$message({
+                 type: 'info',
+                 message: '已取消'
+              })         
+          })
           Message.error(msg || '发生了一些错误，请重试！')
+          return Promise.reject(new Error(msg || 'Error'))
+        }
       } else {
         // 根据后端返回的 code 进行处理，这里以非 200 为例展示错误提示
         Message.error(msg || '发生了一些错误，请重试！')
